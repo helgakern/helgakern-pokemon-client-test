@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native'; // React Native API Reference -> https://facebook.github.io/react-native/docs/activityindicator
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'; // React Native API Reference -> https://facebook.github.io/react-native/docs/activityindicator
 import { Header } from './components'
 
 const POKEMON_API = `https://pokeapi.co/api/v2/`
@@ -21,11 +21,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header/>
-      <View style={styles.pokemonList}>
-        {
-          pokemonList.map(pokemon => <View style={styles.listItem}><Text style={styles.listItemText}>{pokemon.name}</Text></View>)
-        }
-      </View>
+      <SafeAreaView style={styles.pokemonList}>
+        <ScrollView>
+          {
+            pokemonList.map(pokemon => <View style={styles.listItem}><Text style={styles.listItemText}>{pokemon.name}</Text></View>)
+          }
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }
