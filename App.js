@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native'; // React Native API Reference -> https://facebook.github.io/react-native/docs/activityindicator
-import { Header } from './components'
+import { StyleSheet, View } from 'react-native'; // React Native API Reference -> https://facebook.github.io/react-native/docs/activityindicator
+import { Header, ScrollableList } from './components'
 
 const POKEMON_API = `https://pokeapi.co/api/v2/`
 const GET_50_POKEMON_PATH = `pokemon?limit=50`
@@ -21,13 +20,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header/>
-      <SafeAreaView style={styles.pokemonList}>
-        <ScrollView>
-          {
-            pokemonList.map(pokemon => <View style={styles.listItem}><Text style={styles.listItemText}>{pokemon.name}</Text></View>)
-          }
-        </ScrollView>
-      </SafeAreaView>
+      <ScrollableList list={pokemonList}/>
     </View>
   );
 }
@@ -39,20 +32,5 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexDirection: 'column'
-  },
-  pokemonList: {
-    flex: 1,
-    flexDirection: 'column',
-    width: '100%',
-  },
-  listItem: {
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
-  },
-  listItemText: {
-    fontSize: 20,
   }
 });
