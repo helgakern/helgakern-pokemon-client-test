@@ -1,12 +1,21 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView, Text, View, TouchableHighlight } from 'react-native'
 
 export default function ScrollableList({list}) {
   return(
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {
-          list.map((pokemon, i) => <View key={i} style={styles.listItem}><Text style={styles.listItemText}>{pokemon.name}</Text></View>)
+        list.map((pokemon, i) => (
+            <TouchableHighlight
+              onPress={() => console.log('pressed')}
+              key={i} 
+              style={styles.listItem}>
+              <Text style={styles.listItemText}>
+                {pokemon.name}
+              </Text>
+            </TouchableHighlight>)
+          )
         }
       </ScrollView>
     </SafeAreaView>
