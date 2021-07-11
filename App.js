@@ -1,9 +1,14 @@
+import 'react-native-gesture-handler'
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, View } from 'react-native'; // React Native API Reference -> https://facebook.github.io/react-native/docs/activityindicator
-import { Header, ScrollableList } from './components'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Header, ScrollableList, PokemonDetail } from './components'
 
 const POKEMON_API = `https://pokeapi.co/api/v2/`
 const GET_50_POKEMON_PATH = `pokemon?limit=50`
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [pokemonList, setPokemonList] = useState([])
@@ -18,10 +23,26 @@ export default function App() {
   }, [])
   console.log(pokemonList)
   return (
-    <View style={styles.container}>
-      <Header/>
-      <ScrollableList list={pokemonList}/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Pokemon List" // Name of the route
+          children={({navigation}) => {
+            return(
+              <View style={styles.container}>
+                <Header/>
+                <ScrollableList list={pokemonList} navigation={navigation}/>
+              </View>
+            )
+          }}
+          options={{title: 'Pokédex'}}
+        />
+        <Stack.Screen 
+          name="Pokemon Detail"
+          component={PokemonDetail}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
